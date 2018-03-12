@@ -47,6 +47,7 @@
 
 /* USER CODE BEGIN Includes */
 #include "fram.h"
+#include "sys.h"
 /* USER CODE END Includes */
 
 /* Private variables ---------------------------------------------------------*/
@@ -76,7 +77,7 @@ volatile uint16_t blinkDelay = 1000;
 int main(void)
 {
   /* USER CODE BEGIN 1 */
-
+	sysStartup();
   /* USER CODE END 1 */
 
   /* MCU Configuration----------------------------------------------------------*/
@@ -108,6 +109,8 @@ int main(void)
   HAL_ADC_Start_IT(&hadc1);
 
   fram_init();
+  char SystemID[SYSTEM_ID_STRING_SIZE];
+  getSystemID(SystemID, sizeof(SystemID));
   /* USER CODE END 2 */
 
   /* Infinite loop */

@@ -1,9 +1,0 @@
-fram.c:28:16:getI2CAddress	0	static
-fram.c:53:12:fram_read_private	32	static
-fram.c:33:12:fram_write_private	32	static
-fram.c:71:6:fram_init	16	static
-fram.c:94:5:fram_busy	0	static
-fram.c:99:5:fram_write	8	static
-fram.c:106:5:fram_read	8	static
-fram.c:122:12:fram_getSystemStatus	0	static
-fram.c:127:10:fram_getSystemInfo	12	static

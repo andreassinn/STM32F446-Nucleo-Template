@@ -1,6 +1,0 @@
-stm32f4xx_it.c:54:6:SysTick_Handler	8	static
-stm32f4xx_it.c:76:6:DMA1_Stream6_IRQHandler	8	static
-stm32f4xx_it.c:90:6:ADC_IRQHandler	8	static
-stm32f4xx_it.c:104:6:I2C1_EV_IRQHandler	8	static
-stm32f4xx_it.c:118:6:I2C1_ER_IRQHandler	8	static
-stm32f4xx_it.c:132:6:EXTI15_10_IRQHandler	8	static

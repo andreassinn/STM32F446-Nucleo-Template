@@ -49,7 +49,7 @@
 /* USER CODE END Includes */
 
 /* Private define ------------------------------------------------------------*/
-#define MODULE_NAME "ALPHA"
+#define MODULE_NAME "Mechatronik"
 #define FRAM_CLEAR_ON_INIT 0
 #define FRAM_SIZE 2000
 
