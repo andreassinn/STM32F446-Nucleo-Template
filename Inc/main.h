@@ -49,9 +49,6 @@
 /* USER CODE END Includes */
 
 /* Private define ------------------------------------------------------------*/
-#define MODULE_NAME "Mechatronik"
-#define FRAM_CLEAR_ON_INIT 0
-#define FRAM_SIZE 2000
 
 #define B1_Pin GPIO_PIN_13
 #define B1_GPIO_Port GPIOC

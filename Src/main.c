@@ -1,3 +1,4 @@
+
 /**
   ******************************************************************************
   * @file           : main.c
@@ -46,8 +47,8 @@
 #include "gpio.h"
 
 /* USER CODE BEGIN Includes */
-#include "fram.h"
-#include "sys.h"
+#include "board_utils.h"
+#include "motor.h"
 /* USER CODE END Includes */
 
 /* Private variables ---------------------------------------------------------*/
@@ -77,7 +78,9 @@ volatile uint16_t blinkDelay = 1000;
 int main(void)
 {
   /* USER CODE BEGIN 1 */
-	sysStartup();
+#ifdef BOARD_UTILITIES_IN_USE
+	system_init();
+#endif
   /* USER CODE END 1 */
 
   /* MCU Configuration----------------------------------------------------------*/
@@ -102,15 +105,17 @@ int main(void)
   MX_USART2_UART_Init();
   MX_ADC1_Init();
   MX_TIM1_Init();
-  MX_I2C1_Init();
   MX_TIM2_Init();
+  MX_TIM3_Init();
+  MX_I2C1_Init();
   /* USER CODE BEGIN 2 */
   HAL_TIM_Base_Start(&htim2); //Start timer to to provide trigger for the adc conversion
   HAL_ADC_Start_IT(&hadc1);
-
+#ifdef BOARD_FRAM_IN_USE
   fram_init();
-  char SystemID[SYSTEM_ID_STRING_SIZE];
-  getSystemID(SystemID, sizeof(SystemID));
+#endif
+
+  motor_start();
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -123,6 +128,7 @@ int main(void)
   /* USER CODE BEGIN 3 */
 	  HAL_GPIO_TogglePin(LD2_GPIO_Port,LD2_Pin);
 	  HAL_Delay(blinkDelay); //Busy wait
+	  TIM1->CCER &= ~0x01;
   }
   /* USER CODE END 3 */
 
