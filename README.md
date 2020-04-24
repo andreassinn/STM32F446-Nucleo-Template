@@ -1,5 +1,7 @@
 # Fachvertiefung Mechatronik
 
+This example project provides a basic configuration of the used microcontroller including a custom printf for transmission via UART-USB-VCOM.
+
 ## Used software
-* [STM32 Studio](https://www.st.com/en/development-tools/stm-studio-stm32.html)
-* [STLink Utility](https://www.st.com/en/development-tools/stsw-link004.html)
+* [STM32 Cube IDE](https://www.st.com/en/development-tools/stm32cubeide.html)
+
