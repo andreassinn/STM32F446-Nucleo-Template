@@ -3,15 +3,15 @@
   <FileVersion>3.0</FileVersion>
   <Workspace>
     <WorkspaceType>Single-project</WorkspaceType>
-    <WorkspacePath>C:\Users\peter\Documents\Projekte\STM32F446-Nucleo-Template\</WorkspacePath>
+    <WorkspacePath>C:\Users\asinn\ACIN\LVA\FVMI\SS2020\Fernlehre\Prototype\STM32_Workspace\STM32F446-Nucleo-Template\</WorkspacePath>
     <underRoot>true</underRoot>
     <TrustZone>0</TrustZone>
-    <HAL_Driver>C:\Users\peter\STM32Cube\Repository\STM32Cube_FW_F4_V1.24.2</HAL_Driver>
+    <HAL_Driver>C:\Users\asinn\STM32Cube\Repository\STM32Cube_FW_F4_V1.25.0</HAL_Driver>
     <CMSIS>Drivers/CMSIS</CMSIS>
     <Toolchain>STM32CubeIDE</Toolchain>
-    <IocFile>Fachvertiefung Mechatronik.ioc</IocFile>
+    <IocFile>STM32F446-Nucleo-Template.ioc</IocFile>
     <Project>
-      <ProjectName>Fachvertiefung Mechatronik</ProjectName>
+      <ProjectName>STM32F446-Nucleo-Template</ProjectName>
       <ProjectNature>C</ProjectNature>
       <Secure/>
       <filestoremove/>
@@ -20,7 +20,7 @@
       </sourceEntriesToRemove>
       <configs>
         <config>
-          <name>Fachvertiefung Mechatronik</name>
+          <name>STM32F446-Nucleo-Template</name>
           <mainSourceRepo>Src</mainSourceRepo>
           <sourceStructure>Basic</sourceStructure>
           <device>STM32F446RETx</device>
@@ -30,7 +30,7 @@
             <memory access="xrw" name="RAM" size="128" start="0x20000000"/>
             <memory access="rx" name="FLASH" size="512" start="0x8000000"/>
           </memories>
-          <startup>C:\Users\peter\STM32Cube\Repository\STM32Cube_FW_F4_V1.24.2\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\gcc\startup_stm32f446xx.s</startup>
+          <startup>C:\Users\asinn\STM32Cube\Repository\STM32Cube_FW_F4_V1.25.0\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\gcc\startup_stm32f446xx.s</startup>
           <LinkSettings>
             <LinkAdditionalLibs/>
           </LinkSettings>

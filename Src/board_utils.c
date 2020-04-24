@@ -5,6 +5,7 @@
   ******************************************************************************
 */
 
+#include <stdio.h>
 #include "board_utils.h"
 #include "stm32f4xx_hal.h"
 #include "string.h"

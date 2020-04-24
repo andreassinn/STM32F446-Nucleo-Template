@@ -34,7 +34,7 @@
 #define FRAM_CLEAR_ON_INIT 0
 #endif
 
-#define BOARD_FRAM_IN_USE 1
+#define BOARD_FRAM_IN_USE 0
 
 typedef struct
 {

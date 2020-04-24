@@ -1,36 +1,38 @@
 /* USER CODE BEGIN Header */
 /**
-  ******************************************************************************
-  * @file           : main.c
-  * @brief          : Main program body
-  ******************************************************************************
-  * @attention
-  *
-  * <h2><center>&copy; Copyright (c) 2020 STMicroelectronics.
-  * All rights reserved.</center></h2>
-  *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
-  *
-  ******************************************************************************
-  */
+ ******************************************************************************
+ * @file           : main.c
+ * @brief          : Main program body
+ ******************************************************************************
+ * @attention
+ *
+ * <h2><center>&copy; Copyright (c) 2020 STMicroelectronics.
+ * All rights reserved.</center></h2>
+ *
+ * This software component is licensed by ST under BSD 3-Clause license,
+ * the "License"; You may not use this file except in compliance with the
+ * License. You may obtain a copy of the License at:
+ *                        opensource.org/licenses/BSD-3-Clause
+ *
+ ******************************************************************************
+ */
 /* USER CODE END Header */
 
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
-#include "adc.h"
 #include "dma.h"
 #include "i2c.h"
-#include "tim.h"
 #include "usart.h"
 #include "gpio.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <stdarg.h>
 #include "board_utils.h"
-#include "motor.h"
+
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -59,6 +61,7 @@ void SystemClock_Config(void);
 /* USER CODE BEGIN PFP */
 /* Private function prototypes -----------------------------------------------*/
 
+void oprintf(const char *format, ...);
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -77,7 +80,6 @@ int main(void)
 	system_init();
 #endif
   /* USER CODE END 1 */
-  
 
   /* MCU Configuration--------------------------------------------------------*/
 
@@ -99,33 +101,34 @@ int main(void)
   MX_GPIO_Init();
   MX_DMA_Init();
   MX_USART2_UART_Init();
-  MX_ADC1_Init();
-  MX_TIM1_Init();
-  MX_TIM2_Init();
-  MX_TIM3_Init();
   MX_I2C1_Init();
   /* USER CODE BEGIN 2 */
-  HAL_TIM_Base_Start(&htim2); //Start timer to to provide trigger for the adc conversion
-  HAL_ADC_Start_IT(&hadc1);
+
 #ifdef BOARD_FRAM_IN_USE
-  fram_init();
+	fram_init();
 #endif
 
-  motor_start();
+
+
   /* USER CODE END 2 */
+	oprintf("Startup ready\n");
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  while (1)
-  {
+	uint32_t ii = 0;
+	while (1) {
 
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-	  HAL_GPIO_TogglePin(LD2_GPIO_Port,LD2_Pin);
-	  HAL_Delay(blinkDelay); //Busy wait
-	  TIM1->CCER &= ~0x01;
-  }
+		ii++;
+		HAL_Delay(1000);
+		//float cfreq = bldc_get_current_frequency();
+		HAL_GPIO_WritePin(LD2_GPIO_Port, LD2_Pin, SET);
+		oprintf("Default MSG %d\n",ii);
+		HAL_Delay(50);
+		HAL_GPIO_WritePin(LD2_GPIO_Port, LD2_Pin, RESET);
+	}
   /* USER CODE END 3 */
 }
 
@@ -170,7 +173,7 @@ void SystemClock_Config(void)
   RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
   RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
   RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV4;
-  RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV4;
+  RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV2;
 
   if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_5) != HAL_OK)
   {
@@ -179,6 +182,24 @@ void SystemClock_Config(void)
 }
 
 /* USER CODE BEGIN 4 */
+
+// Simple own printf for communication via USB-UART
+void oprintf(const char *format, ...) {
+	int len;
+	va_list args;
+	va_start(args, format);
+
+	// determine how long the result will be
+	len = vsnprintf(NULL, 0, format, args);
+
+	// reserve the string and generate it.
+	char tx_buf[len + 1];
+	vsprintf(tx_buf, format, args);
+
+	HAL_UART_Transmit(&huart2, (uint8_t *) tx_buf, strlen(tx_buf), 50);
+
+	va_end(args);
+}
 
 /* USER CODE END 4 */
 
@@ -189,10 +210,9 @@ void SystemClock_Config(void)
 void Error_Handler(void)
 {
   /* USER CODE BEGIN Error_Handler_Debug */
-  /* User can add his own implementation to report the HAL error return state */
-  while(1)
-  {
-  }
+	/* User can add his own implementation to report the HAL error return state */
+	while (1) {
+	}
   /* USER CODE END Error_Handler_Debug */
 }
 
